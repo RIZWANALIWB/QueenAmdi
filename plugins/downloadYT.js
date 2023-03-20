@@ -62,8 +62,8 @@ AMDI({ cmd: ["song", "yta", "mp3"], desc: Lang.songDesc, example: Lang.songExa, 
         const buttons = [
             {type: "url", displayText: "Watch on YouTube", url: input},
             {type: "click", displayText: "🎶 Audio File", buttonCMD: `${prefix}ytdownload audio ${input}`},
-            {type: "click", displayText: "📁 Document File", buttonCMD: `${prefix}ytdownload document ${input}`},
-            {type: "click", displayText: "ℹ️ Video Info", buttonCMD: `${prefix}ytinfo ${input}`}
+            {type: "click", displayText: "", buttonCMD: `${prefix}ytdownload document ${input}`},
+            {type: "click", displayText: "", buttonCMD: `${prefix}ytinfo ${input}`}
         ]
         
         return await sendButtonsMsg(buttons, {text: ytDlTXT, tagMsg: true, showURL: true});
