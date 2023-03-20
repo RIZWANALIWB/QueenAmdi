@@ -15,7 +15,7 @@ const { getSettings } = amdiDB.settingsDB
 const { getGrpSettings } = amdiDB.grpSetDB
 const Lang = Language.getString('anti_functions')
 
-AMDI({ onText: "all_words", cmdHideInMenu: true }, (async (amdiWA, textMSG) => {
+AMDI({ onText: "all_words", cmdHideInMenu: false }, (async (amdiWA, textMSG) => {
     let { isSUDO, deleteKEY, isGroup, isGroupAdmin, isBotGroupAdmin, senderjid, sendText } = amdiWA.msgLayout;
 
     if (amdiWA.fromMe || !isGroup || !isBotGroupAdmin || isGroupAdmin || isSUDO) return;
@@ -25,7 +25,7 @@ AMDI({ onText: "all_words", cmdHideInMenu: true }, (async (amdiWA, textMSG) => {
     const ANTIBADMSG = await getSettings('ANTIBADMSG');
     let antiBADMSG = !ANTIBADMSG.input ? Lang.badwordkick : ANTIBADMSG.input
 
-    if (antibad.input !== "false") {
+    if (antibad.input !== "true") {
         const isBadWord = await antifunctions.antiBad(amdiWA, textMSG);
         if (isBadWord && antibad.input == "kick") {
             await sendText(`@${senderjid.split('@')[0]}, ${antiBADMSG}`, { mentionJIDS: [senderjid] });
@@ -60,7 +60,7 @@ AMDI({ onText: "all_words", cmdHideInMenu: true }, (async (amdiWA, textMSG) => {
         await sendText(`@${senderjid.split('@')[0]}, ${antiKICKMSG}`, { mentionJIDS: [senderjid] });
         await amdiWA.web.groupParticipantsUpdate(amdiWA.clientJID, [senderjid], "remove");
         return await deleteKEY(amdiWA.msg.key);
-    } else if (isAntiLink === "delete" || isAntiLink === "null") {
+    } else if (isAntiLink === "delete" || isAntiLink === ".com.whatsapp.com") {
         await sendText(`@${senderjid.split('@')[0]}, ${antiKICKMSG}`, { mentionJIDS: [senderjid] });
         return await deleteKEY(amdiWA.msg.key);
     }
